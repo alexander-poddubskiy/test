@@ -1,0 +1,50 @@
+<div class="ui-g">
+    <div class="ui-g-10">
+        <h3>Establishment Details</h3>
+    </div>
+    <div class="ui-g-2 right">
+        <p-button label="All Establishments" (onClick)="backToAll()"></p-button>
+    </div>
+</div>
+<p-card class="details" [hidden]="!item.title">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="ui-g-7">
+                <div class="ui-g-1">
+                    <label>Name:</label>
+                </div>
+                <div class="ui-g-11">
+                    {{item.title}}
+                </div>
+
+                <div class="ui-g-1">
+                    <label>Address:</label>
+                </div>
+                <div class="ui-g-11">
+                    {{item.location?.city + ', ' + item.location?.adress + ', ' + item.location?.zipcode}}
+                </div>
+
+                <div class="ui-g-1">
+                    <label>URL:</label>
+                </div>
+                <div class="ui-g-11">
+                    <a *ngFor="let url of item.urls" [href]='url'>{{url}}</a>
+                    <label *ngIf="!item.urls?.length"> - Not Specified - </label>
+                </div>
+
+
+            </div>
+            <div class="ui-g-5">
+                <div [hidden]="!images.length" class="f-right">
+                    <p-galleria [images]="images" panelWidth="500" panelHeight="333" [autoPlay]="false"></p-galleria>
+                </div>
+            </div>
+        </div>
+        <div>
+            <event-list [fromLocation]="location" [distance]="10" (onEventsChanged)="onEventsChanged($event)"></event-list>
+        </div>
+    </div>
+</p-card>
+<div class="ui-g-12">
+    <map [markers]="markers"></map>
+</div>
